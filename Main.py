@@ -2,11 +2,6 @@ import sys,time,os
 
 
 
-def tw(text):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(0.05)
 
 class Student:
     def __init__(self,name,age,course):
@@ -79,7 +74,6 @@ class StudentSystem:
 
 system = StudentSystem()
 while(True):
-        SaidNot = "YOU KNOW ITS RUDE TO TALK ABOUT SOMEONE WHEN THEY'RE LISTENING..."#This is just a little Easter egg... pls don't bother about this...
         print("\n----Student Info System----")
         print("1)Add Student")
         print("2)View Students")
@@ -95,9 +89,6 @@ while(True):
             system.DeleteS()
         elif choice=="4":
             print("EXITING PROGRAM...")
-            break
-        elif choice=="gaster":
-            tw(SaidNot)
             break
         else:
             print("INCORRECT INPUT... TRY AGAIN")
