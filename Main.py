@@ -3,7 +3,7 @@ import sys,time,os
 
 
 
-class Student:
+class Student: #Prints the name,age and course of students
     def __init__(self,name,age,course):
         self.name=name
         self.age=age
@@ -28,7 +28,7 @@ class StudentSystem:
         self.SaveF()
         print("\nStudent Successfully Added")
 
-    def ViewS(self):
+    def ViewS(self): #Viewing the students in array and file
         if not self.students:
             print("No students found")
             return
@@ -38,12 +38,12 @@ class StudentSystem:
             print(f"{i}.{student.Info()}")
         print()
 
-    def SaveF(self):
+    def SaveF(self): #saves the students information
         with open("Student Records.txt","w") as file:
             for student in self.students:
                 file.write(f"{student.name}, {student.age}, {student.course}\n")
 
-    def DeleteS(self):
+    def DeleteS(self): #Deletes student information
         self.ViewS()
         self.SaveF()
         if not self.students:
@@ -60,7 +60,7 @@ class StudentSystem:
         except ValueError as VErr:
             print(VErr)
 
-    def load_file(self):
+    def load_file(self): #loads students information from txt file
         try:
             with open(f"Student Records.txt", "r") as file:
                 for line in file:
