@@ -1,8 +1,5 @@
 import sys,time,os
 
-
-
-
 class Student: #Prints the name,age and course of students
     def __init__(self,name,age,course):
         self.name=name
@@ -18,7 +15,22 @@ class StudentSystem:
     def __init__(self):
         self.students=[]
         self.load_file()
+     
+    
+    def load_file(self): #loads students information from txt file
+        try:
+            with open(f"Student Records.txt", "r") as file:
+                for line in file:
+                    name, age, course = line.strip().split(",")
+                    self.students.append(Student(name, int(age), course))
+        except FileNotFoundError:
+            pass
 
+     def SaveF(self): #saves the students information
+        with open("Student Records.txt","w") as file:
+            for student in self.students:
+                file.write(f"{student.name}, {student.age}, {student.course}\n")
+    
     def addS(self):#For adding students to the array
         name = input("Enter student's name: ")
         age = input("Enter student's age: ")
@@ -38,11 +50,6 @@ class StudentSystem:
             print(f"{i}.{student.Info()}")
         print()
 
-    def SaveF(self): #saves the students information
-        with open("Student Records.txt","w") as file:
-            for student in self.students:
-                file.write(f"{student.name}, {student.age}, {student.course}\n")
-
     def DeleteS(self): #Deletes student information
         self.ViewS()
         self.SaveF()
@@ -60,17 +67,7 @@ class StudentSystem:
         except ValueError as VErr:
             print(VErr)
 
-    def load_file(self): #loads students information from txt file
-        try:
-            with open(f"Student Records.txt", "r") as file:
-                for line in file:
-                    name, age, course = line.strip().split(",")
-                    self.students.append(Student(name, int(age), course))
-        except FileNotFoundError:
-            pass
-
-
-
+   
 
 system = StudentSystem()
 while(True):
@@ -79,8 +76,9 @@ while(True):
         print("2)View Students")
         print("3)Delete Student")
         print("4)Exit")
-        choice=input("Pick A Number: ").lower()
+        choice=input("Pick A Number: ")
 
+    
         if choice=="1":
             system.addS()
         elif choice=="2":
