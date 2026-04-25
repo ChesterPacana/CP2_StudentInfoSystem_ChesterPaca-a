@@ -1,0 +1,56 @@
+class StudentSystem:
+
+    def __init__(self):
+        self.students=[]
+        self.load_file()
+     
+    
+    def load_file(self): #loads students information from txt file
+        try:
+            with open(f"Student Records.txt", "r") as file:
+                for line in file:
+                    name, age, course = line.strip().split(",")
+                    self.students.append(Student(name, int(age), course))
+        except FileNotFoundError:
+            pass
+
+     def SaveF(self): #saves the students information
+        with open("Student Records.txt","w") as file:
+            for student in self.students:
+                file.write(f"{student.name}, {student.age}, {student.course}\n")
+    
+    def addS(self):#For adding students to the array
+        name = input("Enter student's name: ")
+        age = input("Enter student's age: ")
+        course = input("Enter the course of the student: ")
+        student = Student(name, age, course)
+        self.students.append(student)
+        self.SaveF()
+        print("\nStudent Successfully Added")
+
+    def ViewS(self): #Viewing the students in array and file
+        if not self.students:
+            print("No students found")
+            return
+
+        print("List of Students")
+        for i, student in enumerate(self.students,start=1):
+            print(f"{i}.{student.Info()}")
+        print()
+
+    def DeleteS(self): #Deletes student information
+        self.ViewS()
+        self.SaveF()
+        if not self.students:
+             return
+        try:
+            print("\nStudent Records")
+            for i, student in enumerate(self.students, start=1):
+                print(f"{i}.{student.Info()}")
+
+            option = int(input("Choose student record to delete: "))
+            if 1 <= option <= len(self.students):
+                delete = self.students.pop(option - 1)
+                print(f"Deleted: {delete.name}")
+        except ValueError as VErr:
+            print(VErr)
