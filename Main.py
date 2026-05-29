@@ -1,5 +1,5 @@
-import sys,time,os
-from Student import Student
+import tkinter as tk
+from tkinter import messagebox
 from StudentSystem import StudentSystem
 
 system = StudentSystem()
