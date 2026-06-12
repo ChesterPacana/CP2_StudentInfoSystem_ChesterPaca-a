@@ -1,56 +1,43 @@
-class StudentSystem:
+from Student import Student
 
+class StudentSystem:
     def __init__(self):
         self.students=[]
         self.load_file()
-     
-    
-    def load_file(self): #loads students information from txt file
+
+    #For File Handling
+
+    def load_file(self):
         try:
-            with open(f"Student Records.txt", "r") as file:
+            with open("Student Records.txt", "r") as file:
                 for line in file:
-                    name, age, course = line.strip().split(",")
-                    self.students.append(Student(name, int(age), course))
+                    name, age, course=line.strip().split(",")
+                    self.students.append(Student(name.strip(), int(age), course.strip()))
         except FileNotFoundError:
             pass
 
-     def SaveF(self): #saves the students information
-        with open("Student Records.txt","w") as file:
+    def save_file(self):
+        with open("Student Records.txt", "w") as file:
             for student in self.students:
                 file.write(f"{student.name}, {student.age}, {student.course}\n")
-    
-    def addS(self):#For adding students to the array
-        name = input("Enter student's name: ")
-        age = input("Enter student's age: ")
-        course = input("Enter the course of the student: ")
+
+    def addS(self, name, age, course):
+        age=int(age)
+
+        if age < 18 or age > 100:
+            raise ValueError()
+
         student = Student(name, age, course)
         self.students.append(student)
-        self.SaveF()
-        print("\nStudent Successfully Added")
+        self.save_file()
 
-    def ViewS(self): #Viewing the students in array and file
-        if not self.students:
-            print("No students found")
-            return
+    def viewS(self): #able to view students in the box
+        return [student.Info() for student in self.students]
 
-        print("List of Students")
-        for i, student in enumerate(self.students,start=1):
-            print(f"{i}.{student.Info()}")
-        print()
-
-    def DeleteS(self): #Deletes student information
-        self.ViewS()
-        self.SaveF()
-        if not self.students:
-             return
-        try:
-            print("\nStudent Records")
-            for i, student in enumerate(self.students, start=1):
-                print(f"{i}.{student.Info()}")
-
-            option = int(input("Choose student record to delete: "))
-            if 1 <= option <= len(self.students):
-                delete = self.students.pop(option - 1)
-                print(f"Deleted: {delete.name}")
-        except ValueError as VErr:
-            print(VErr)
+    def deleteS(self, index): # for deleting students, it only functions if 0 is less than the number of corresponding student
+        #and is less than the length of the list of students
+        if 0 <= index < len(self.students):
+            remove = self.students.pop(index)
+            self.save_file()
+            return remove
+        return None
