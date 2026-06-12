@@ -1,4 +1,4 @@
-class Student: #Prints the name,age and course of students
+class Student: #Prints the name,age and course of students #remains unchanged due to funtioning normaly even with nre GUI
     def __init__(self,name,age,course):
         self.name=name
         self.age=age
