@@ -45,11 +45,14 @@ def deleteStudent():
         messagebox.showerror("ERROR", "NO STUDENT SELECTED, CLICK STUDENT TO SELECT!")
         return
 
-    index=selected(0)
+    index=selected[0]
     removed=system.deleteS(index)
 
     if removed:
-        messagebox.showinfo(f"Deleted: {removed.name}, {removed.age}, {removed.course}")
+        messagebox.showinfo(f"DELETED",f"Deleted: {removed.name}")
+        
+
+    refreshList()
 
 #MAIN GUI, like the buttons and things
 listbox = tk.Listbox(root, width=60)
